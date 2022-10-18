@@ -60,6 +60,7 @@ function validateContact() {
 function validateRegister() {
     $nameErr = $emailErr = $passwordErr = $passwordrepeatErr = "";
 	$name = $email = $password = $passwordrepeat = "";
+	$genericErr = '';
 	$valid = false;
 
 
@@ -92,10 +93,15 @@ function validateRegister() {
 		}
 		
 		if (empty($nameErr) && empty($emailErr) && empty($passwordErr) && empty($passwordrepeatErr)) {
-			if (empty(doesEmailExist($email))) {
-				$valid = true;
-			} else {
-				$emailErr = "Email is al in gebruik.";
+			try {
+				if (empty(doesEmailExist($email))) {
+					$valid = true;
+				} else {
+					$emailErr = "Email is al in gebruik.";
+				}
+			} catch (Exception $e) {
+				$genericErr = "Er is een technisch probleem opgetreden.";
+				logToServer("authentication failed: ".$e->getMessage());
 			}
 		}
 
@@ -104,7 +110,7 @@ function validateRegister() {
     
 
     return array("name" => $name, "nameErr" => $nameErr,
-	"valid" => $valid,
+	"valid" => $valid, 'genericErr' => $genericErr,
 	"password" => $password, "passwordErr" => $passwordErr,
 	"email" => $email, "emailErr" => $emailErr,
 	"passwordrepeat" => $passwordrepeat, "passwordrepeatErr" => $passwordrepeatErr);
@@ -116,6 +122,7 @@ function validateLogin() {
 	$email = $password = "";
 	$valid = false;
     $name = '';
+	$genericErr = '';
 
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -132,18 +139,23 @@ function validateLogin() {
 		}
 
         if (empty($emailErr) && empty($passwordErr)) {
-			$authenticate = authenticateUser($email, $password);
-			switch($authenticate['result']) {
-				case RESULT_OK:
-					$valid = TRUE;
-					$name = $authenticate['user']['name'];
-					break;
-				case RESULT_WRONG_PASSWORD:
-					$passwordErr = "Verkeerd wachtwoord.";
-					break;
-				case RESULT_WRONG_EMAIL:
-					$emailErr = "Email is onbekend.";
-					break;
+			try {
+				$authenticate = authenticateUser($email, $password);
+				switch($authenticate['result']) {
+					case RESULT_OK:
+						$valid = TRUE;
+						$name = $authenticate['user']['name'];
+						break;
+					case RESULT_WRONG_PASSWORD:
+						$passwordErr = "Verkeerd wachtwoord.";
+						break;
+					case RESULT_WRONG_EMAIL:
+						$emailErr = "Email is onbekend.";
+						break;
+				}
+			} catch (Exception $e) {
+				$genericErr = "Er is een technisch probleem opgetreden.";
+				logToServer("authentication failed: ".$e->getMessage());
 			}
 			}
 			
@@ -151,7 +163,7 @@ function validateLogin() {
 
     
     return array(
-	"valid" => $valid,
+	"valid" => $valid, 'genericErr' => $genericErr,
 	"password" => $password, "passwordErr" => $passwordErr,
 	"email" => $email, "emailErr" => $emailErr,
     "name" => $name);

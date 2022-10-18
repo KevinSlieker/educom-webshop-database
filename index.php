@@ -37,8 +37,13 @@ function processRequest($page)  {
         case 'register':
             $data = validateRegister();
             if ($data['valid']) {
+                try {
                 storeUser($data["email"],$data["name"],$data["password"]);
                 $page = 'login' ;
+                } catch (Exception $e) {
+                    $data['genericErr'] = "Er is een technisch probleem opgetreden.";
+                    logToServer("storeUser failed: ".$e->getMessage());
+                }
             }
             break;
      }
@@ -49,6 +54,9 @@ function processRequest($page)  {
  
 function showContent($data) 
 { 
+    if (isset($data['genericErr'])) {
+        echo '<span class="error"> ' . $data['genericErr'] . ' </span><br>' . PHP_EOL;
+    }
    switch($data['page']) 
    { 
        case 'home':
@@ -243,4 +251,8 @@ function endDocument()
 { 
    echo  '</html>'; 
 } 
+
+function logToServer($message) {
+    echo "logToServer: $message";
+}
 ?>
