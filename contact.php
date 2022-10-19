@@ -30,7 +30,7 @@ showFormSectionEnd();
 showFormEnd("contact", "Submit");
 }
 
-function ShowContactThanks($data){
+function showContactThanks($data){
 	echo '<p class="thanks"> Bedankt voor het invullen van het contactformulier. </p>
 	<br>
 	<h3> Jouw gegevens:</h3>';

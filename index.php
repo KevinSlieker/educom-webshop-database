@@ -46,6 +46,13 @@ function processRequest($page)  {
                 }
             }
             break;
+        case "webshop":
+            $data = getWebshopProducts();
+            break;
+        case "detail":
+            $id = getUrlVar("id");
+            $data = getProductDetails($id);
+            break;
      }
       $data['page'] = $page;
       return $data;
@@ -73,7 +80,7 @@ function showContent($data)
             break;
        case 'thanks':
             require_once('contact.php');
-            ShowContactThanks($data);
+            showContactThanks($data);
             break;     
        case 'register':
             require_once('register.php');
@@ -83,6 +90,14 @@ function showContent($data)
             require_once('login.php');
             showLoginForm($data);
             break;
+       case "webshop":
+            require_once('webshop.php');
+            showWebshopContent($data);
+            break;
+        case "detail":
+            require_once('detail.php');
+            showDetailContent($data);
+            break;     
        default:
             echo 'Error : Page NOT Found';  
    }     
@@ -160,7 +175,15 @@ function showHeadSection($data)
     case 'login':
         require_once('login.php');
         showLoginHead();
-        break;        
+        break;
+    case "webshop":
+        require_once('webshop.php');
+        showWebshopHead($data);
+        break;
+    case "detail":
+        require_once('detail.php');
+        showDetailHead($data);
+        break;                
     default:
         echo 'Error : Page NOT Found';
 
@@ -207,6 +230,14 @@ function showHeader($data)
             require_once('login.php');
             showLoginHeader();
             break;
+        case "webshop":
+            require_once('webshop.php');
+            showWebshopHeader($data);
+            break;
+            case "detail":
+            require_once('detail.php');
+            showDetailHeader($data);
+            break;    
         default:
             echo 'Error : Page NOT Found';
     }
@@ -220,7 +251,8 @@ function showMenu()
     <ul>
       <li><a Href="index.php?page=home">Home</a></li>
       <li><a Href="index.php?page=about">About</a></li>
-      <li><a Href="index.php?page=contact">Contact</a></li>';
+      <li><a Href="index.php?page=contact">Contact</a></li>
+      <li><a Href="index.php?page=webshop">Webshop</a></li>';
 
     if (isUserLoggedIn()) {
         echo showMenuItem("logout", "Logout " . getLoggedInUsername());
