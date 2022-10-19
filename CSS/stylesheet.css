@@ -24,34 +24,51 @@ h1 {
 	color: black;
 }
 
-div.links li > a {
-	text-decoration: none;
+.product {
 	border-style: solid;
-	border-width: thin;
-	list-style-type: none;
-	color: white;
-	background-color: blue;
+	border-color: blue;
+	border-radius: 20px;
+	margin-left: 50px;
+	margin-right: 50px;
+	margin-top: 5px;
+	margin-bottom: 5px;	
+	padding-left: 30px;
+	padding-bottom: 30px;
 }
 
-div.links ul{
+
+
+div.links {
 	list-style-type: none;
+	background-color: blue;
+	border-radius: 20px;
 }
 
 div.links li {
 	display: inline;
+	padding-left: 40px;
+}
+
+div.links li a {
+	text-decoration: none;
+	text-align: center;
+	list-style-type: none;
+	color: white;
 }
 
 p1,p2,p3 {
 	font-size: 12px;
-	color: darkgray;
+	color: black;
 	background-color: white;
 }
 
 footer {
 background-color: black;
+border-radius: 20px;
 color: white;
 font-size: 10px;
 text-align: right;
+padding-right: 10px;
 }
 
 .info input, .input input{
@@ -61,3 +78,4 @@ text-align: right;
 .info label, .input label{
 	float: left;
 }
+
