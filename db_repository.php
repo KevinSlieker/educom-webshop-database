@@ -60,7 +60,44 @@ function findUserByEmail($email){
     finally {
     closeDatabase($conn);
     }
-    
+}
 
+function getAllProducts(){
+    $conn = connectDatabase();
+    $products = NULL;
+    try {
+        $sql = "SELECT * FROM products";
+        $result = mysqli_query($conn, $sql);
+        if ($result == false) {
+            throw new Exception("getAllProducts failed, SQL: " . $sql . "Error: " . mysqli_error($conn));
+            }
+            if (mysqli_num_rows($result) > 0 )
+            while($row = mysqli_fetch_assoc($result)){
+            $products [$row['id']] = $row;
+            }
+            return $products;
+    }
+    finally{
+    closeDatabase($conn);
+    }
+}
+
+function findProductById($productId){
+    $conn = connectDatabase();
+    $product = Null;
+    try {
+        $sql = "SELECT * FROM products WHERE id = " . $productId . "";
+        $result = mysqli_query($conn, $sql);
+        if ($result == false) {
+            throw new Exception("getAllProducts failed, SQL: " . $sql . "Error: " . mysqli_error($conn));
+            }
+            if (mysqli_num_rows($result) > 0 ){
+            $product = mysqli_fetch_assoc($result);
+            }
+            return $product;
+    }
+    finally{
+    closeDatabase($conn);
+    }
 }
 ?>

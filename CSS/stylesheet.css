@@ -14,6 +14,16 @@ h1 {
 	color: red;
 }
 
+.products a {
+	text-decoration: none;
+	color: black;
+}
+
+.products a:visited {
+	text-decoration: none;
+	color: black;
+}
+
 div.links li > a {
 	text-decoration: none;
 	border-style: solid;
