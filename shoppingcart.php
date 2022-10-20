@@ -9,7 +9,7 @@ function showShoppingcartHeader(){
 }
 
 function showShoppingcartContent(){
-    
+    var_dump($_SESSION['shoppingcart']);
 }
 
 ?>

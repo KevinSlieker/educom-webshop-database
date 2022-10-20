@@ -29,14 +29,18 @@ function getProductDetails($productId) {
 
 }
 
-function addAction($nextpage, $productId, $name, $action, $button){
+function addAction($nextpage, $productId = NULL, $name, $addquantity = FALSE, $action, $button){
      if (isUserLoggedIn()){
-          echo '<action="index.php" method="post">';
-          echo '<form>';
+          echo '<form action="index.php" method="post">';
           echo '<input type="hidden" name="action" value="' . $action . '">';
           echo '<input type="hidden" name="id" value="' . $productId . '">';
           echo '<input type="hidden" name="name" value="' . $name . '">';
           echo '<input type="hidden" name="page" value="' . $nextpage . '">';
+          if ($addquantity == TRUE) {
+               $cart = getShoppingcart();
+               $quantity = (1 + getArrayVar($cart, $productId, 0));
+               echo '<input type="hidden" name="quantity" value="' . $quantity . '">';
+               }
           echo '<button>' . $button . '</button>';
           echo '</form>';
      }

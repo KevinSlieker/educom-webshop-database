@@ -56,6 +56,9 @@ function processRequest($page)  {
             $id = getUrlVar("id");
             $data = getProductDetails($id);
             break;
+        case "shoppingcart":
+            handleActions();
+            break;
      }
       $data['page'] = $page;
       return $data;
