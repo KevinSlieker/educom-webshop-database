@@ -62,4 +62,8 @@ function handleActions(){
      }
 
 }
+
+function subTotal($productId, $quantity, $price){
+     
+}
 ?>
