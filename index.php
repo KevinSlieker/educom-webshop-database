@@ -48,9 +48,11 @@ function processRequest($page)  {
             }
             break;
         case "webshop":
+            handleActions();
             $data = getWebshopProducts();
             break;
         case "detail":
+            handleActions();
             $id = getUrlVar("id");
             $data = getProductDetails($id);
             break;
@@ -98,7 +100,11 @@ function showContent($data)
         case "detail":
             require_once('detail.php');
             showDetailContent($data);
-            break;     
+            break;
+        case "shoppingcart":
+            require_once('shoppingcart.php');
+            showShoppingcartContent($data);
+            break;   
        default:
             echo 'Error : Page NOT Found';  
    }     
@@ -184,7 +190,11 @@ function showHeadSection($data)
     case "detail":
         require_once('detail.php');
         showDetailHead($data);
-        break;                
+        break;
+    case "shoppingcart":
+        require_once('shoppingcart.php');
+        showShoppingcartHead($data);
+        break; 
     default:
         echo 'Error : Page NOT Found';
 
@@ -235,10 +245,14 @@ function showHeader($data)
             require_once('webshop.php');
             showWebshopHeader($data);
             break;
-            case "detail":
+        case "detail":
             require_once('detail.php');
             showDetailHeader($data);
-            break;    
+            break;
+        case "shoppingcart":
+            require_once('shoppingcart.php');
+            showShoppingcartHeader($data);
+            break; 
         default:
             echo 'Error : Page NOT Found';
     }
@@ -256,6 +270,7 @@ function showMenu()
       <li><a Href="index.php?page=webshop">Webshop</a></li>';
 
     if (isUserLoggedIn()) {
+        echo showMenuItem("shoppingcart", "Shoppingcart");
         echo showMenuItem("logout", "Logout " . getLoggedInUsername());
     } else {
         echo showMenuItem ("login", "Login");
