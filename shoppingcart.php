@@ -18,11 +18,12 @@ function showShoppingcartContent($data){
             echo '<p4> Hoeveelheid: ' . $product['quantity'] . '</p4><br>';
             echo '<p4> Subtotaal: &euro;' . $product['subtotal'] . ' </p4>';
             echo '</a>' . PHP_EOL;
-            addAction('shoppingcart', $product['productId'], $product['name'], TRUE, 'addToShoppingcart', "Add to shoppingcart");
-            addAction('shoppingcart', $product['productId'], $product['name'], FALSE, 'removeFromShoppingcart', "Remove from shoppingcart");
+            addAction('shoppingcart', 'addToShoppingcart', "Add to shoppingcart", $product['productId'], $product['name'], TRUE);
+            addAction('shoppingcart', 'removeFromShoppingcart', "Remove from shoppingcart", $product['productId'], $product['name'], FALSE);
             echo '</div>';
         }
         echo '<p4>Totaal: &euro;' . $data['total'] .  '</p4>';
+        addAction('home','order', "Order");
     } else {
         echo '<p4>Je shoppingcart is nog leeg.</p4>';
     }

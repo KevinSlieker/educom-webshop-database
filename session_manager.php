@@ -1,6 +1,9 @@
 <?php
-function doLoginUser($name) {
+
+
+function doLoginUser($name, $user_id) {
     $_SESSION['login'] = $name;
+    $_SESSION['user_id'] = $user_id;
     $_SESSION['shoppingcart'] = array();  // productid en quantity
 }
  
@@ -28,4 +31,11 @@ function removeFromShoppingcart($productId){
    unset($_SESSION['shoppingcart'][$productId]);
 }
 
+function emptyShoppingcart(){
+    $_SESSION['shoppingcart'] = array();
+}
+
+function getUser_Id() {
+    return $_SESSION['user_id'];
+}
 ?>

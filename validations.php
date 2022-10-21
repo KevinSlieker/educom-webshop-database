@@ -122,6 +122,7 @@ function validateLogin() {
 	$email = $password = "";
 	$valid = false;
     $name = '';
+	$user_id = '';
 	$genericErr = '';
 
 
@@ -145,6 +146,7 @@ function validateLogin() {
 					case RESULT_OK:
 						$valid = TRUE;
 						$name = $authenticate['user']['name'];
+						$user_id = $authenticate['user']['id'];
 						break;
 					case RESULT_WRONG_PASSWORD:
 						$passwordErr = "Verkeerd wachtwoord.";
@@ -166,7 +168,7 @@ function validateLogin() {
 	"valid" => $valid, 'genericErr' => $genericErr,
 	"password" => $password, "passwordErr" => $passwordErr,
 	"email" => $email, "emailErr" => $emailErr,
-    "name" => $name);
+    "name" => $name, "user_id" => $user_id);
 
 }
 

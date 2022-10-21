@@ -14,7 +14,7 @@ function showDetailContent($data) {
     echo '<img src="Images/' . $data['product']['filename_img'] . '" alt="' . $data['product']['name'] . '" width="150 height="300"><br><br>';
     echo '<p4>Bechrijving: ' . $data['product']['description'] . '</p4><br><br>';
     echo '<p5>Prijs: &euro;' . $data['product']['price'] . '</p5></a>';
-    addAction('webshop', $data['product']['id'], $data['product']['name'], TRUE, 'addToShoppingcart', "Add to shoppingcart");
+    addAction('webshop', 'addToShoppingcart', "Add to shoppingcart", $data['product']['id'], $data['product']['name'], TRUE);
     echo '</div>';  
 }
 ?>

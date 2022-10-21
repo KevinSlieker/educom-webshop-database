@@ -29,12 +29,16 @@ function getProductDetails($productId) {
 
 }
 
-function addAction($nextpage, $productId = NULL, $name, $addquantity = FALSE, $action, $button){
+function addAction($nextpage, $action, $button, $productId = NULL, $name = NULL, $addquantity = FALSE){
      if (isUserLoggedIn()){
           echo '<form action="index.php" method="post">';
           echo '<input type="hidden" name="action" value="' . $action . '">';
+          if (!empty($productId)) {
           echo '<input type="hidden" name="id" value="' . $productId . '">';
+          }
+          if (!empty($name)) {
           echo '<input type="hidden" name="name" value="' . $name . '">';
+          }
           echo '<input type="hidden" name="page" value="' . $nextpage . '">';
           if ($addquantity == TRUE) {
                $cart = getShoppingcart();
@@ -48,6 +52,7 @@ function addAction($nextpage, $productId = NULL, $name, $addquantity = FALSE, $a
 }
 
 function handleActions(){
+     $data = array();
      $action = getPostVar("action");
      switch($action) {
           case "addToShoppingcart":
@@ -59,9 +64,29 @@ function handleActions(){
                $productId = getPostVar("id");
                removeFromShoppingcart($productId);
                break;
+          case "order":
+               $user_id = getUser_Id();
+               $data = getShoppingcartProducts(); 
+               $data = storeOrder($user_id, $data['shoppingcartproducts']);
+               break;
      }
+     return $data;
 
 }
+
+function storeOrder($user_id, $shoppingcartproducts) {
+     $genericErr = '';
+
+     try{
+     saveOrder($user_id, $shoppingcartproducts);
+     emptyShoppingcart();
+     }     catch (Exception $e) {
+          $genericErr = "Sorry, kan de bestelling niet verwerken.";  // <-- foutmelding voor de user
+          logToServer("saveOrder failed  " . $e -> getMessage() );
+     } 
+     return array("genericErr" => $genericErr);
+}
+
 
 
 function getShoppingcartProducts() {

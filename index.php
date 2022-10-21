@@ -13,7 +13,8 @@ $page = getRequestedPage();
 $data = processRequest($page);
 showResponsePage($data);
 
-var_dump($data);
+//var_dump($data);
+var_dump($_SESSION);
 
 function processRequest($page)  {
 
@@ -21,7 +22,7 @@ function processRequest($page)  {
         case 'login':
             $data = validateLogin();
             if ($data['valid']) {
-               doLoginUser($data['name']);
+               doLoginUser($data['name'], $data['user_id']);
                $page = 'home';
             } 
             break;
@@ -48,17 +49,20 @@ function processRequest($page)  {
             }
             break;
         case "webshop":
-            handleActions();
-            $data = getWebshopProducts();
+            $data = handleActions();
+            $data = array_merge($data, getWebshopProducts());
             break;
         case "detail":
-            handleActions();
+            $data = handleActions();
             $id = getUrlVar("id");
-            $data = getProductDetails($id);
+            $data = array_merge($data, getProductDetails($id));
             break;
         case "shoppingcart":
-            handleActions();
-            $data = getShoppingcartProducts();
+            $data = handleActions();
+            $data = array_merge($data, getShoppingcartProducts());
+            break;
+        case "home":
+            $data = handleActions();
             break;
      }
       $data['page'] = $page;
