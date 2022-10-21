@@ -64,6 +64,7 @@ function handleActions(){
 }
 
 function subTotal($productId, $quantity, $price){
-     
+     $subtotal = number_format((float)($quantity * $price), 2);
+     return $subtotal;
 }
 ?>

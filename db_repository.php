@@ -2,7 +2,7 @@
 
 function connectDatabase(){
 
-$servername = "localhost";
+$servername = "127.0.0.1";
 $username = "Kevins_WebShopUser";
 $password = "GebruikerWebShop";
 $dbname = "kevins_webshop";
