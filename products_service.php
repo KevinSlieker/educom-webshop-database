@@ -63,8 +63,29 @@ function handleActions(){
 
 }
 
-function subTotal($productId, $quantity, $price){
-     $subtotal = number_format((float)($quantity * $price), 2);
-     return $subtotal;
+
+function getShoppingcartProducts() {
+     $shoppingcartproducts = array();
+     $total = 0;
+     $genericErr= "";
+     try {
+          $shoppingcart = getShoppingcart();
+          $products = getAllProducts();
+
+          foreach ($shoppingcart as $productId => $quantity) {
+               $product = getArrayVar($products, $productId, NULL);
+          
+          $subtotal = number_format((float)($quantity * $product['price']), 2);
+          $shoppingcartproduct = array ('productId' => $productId, 'quantity' => $quantity, 'subtotal' => $subtotal, 
+          'price' => $product['price'], 'name' => $product['name'], 'filename_img' => $product['filename_img']);
+          $shoppingcartproducts[] = $shoppingcartproduct;
+          $total += $subtotal;
+          }
+     }     catch (Exception $e) {
+          $genericErr = "Sorry, kan geen producten laten zien op dit moment.";  // <-- foutmelding voor de user
+          logToServer("GetAllProducts failed  " . $e -> getMessage() );
+     }
+     return array ("shoppingcartproducts" => $shoppingcartproducts, "total" => number_format((float)($total), 2), "genericErr" => $genericErr);
 }
+
 ?>

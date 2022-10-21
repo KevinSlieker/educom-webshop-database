@@ -58,7 +58,7 @@ function processRequest($page)  {
             break;
         case "shoppingcart":
             handleActions();
-            $data = getWebshopProducts();
+            $data = getShoppingcartProducts();
             break;
      }
       $data['page'] = $page;

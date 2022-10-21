@@ -2,8 +2,8 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Gegenereerd op: 19 okt 2022 om 12:50
+-- Host: 127.0.0.1:3306
+-- Gegenereerd op: 21 okt 2022 om 12:11
 -- Serverversie: 10.4.25-MariaDB
 -- PHP-versie: 8.1.10
 
@@ -31,7 +31,7 @@ CREATE TABLE `products` (
   `id` int(30) NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `price` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` decimal(10,2) NOT NULL,
   `filename_img` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -40,11 +40,11 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `filename_img`) VALUES
-(1, 'Island', 'Een basic full art island van de Zendikar set.', '€1,00', 'island.jpg'),
-(2, 'Forest', 'Een basic full art forest van de Zendikar set.', '€1,00', 'forest.jpg'),
-(3, 'Mountain', 'Een basic full art mountain van de Zendikar set.', '€1,00', 'mountain.jpg'),
-(4, 'Plains', 'Een basic full art plains van de Zendikar set.', '€1,00', 'plains.jpg'),
-(5, 'Swamp', 'Een basic full art swamp van de Zendikar set.', '€1,00', 'swamp.jpg');
+(1, 'Island', 'Een basic full art island van de Zendikar set.', '1.00', 'island.jpg'),
+(2, 'Forest', 'Een basic full art forest van de Zendikar set.', '1.00', 'forest.jpg'),
+(3, 'Mountain', 'Een basic full art mountain van de Zendikar set.', '1.00', 'mountain.jpg'),
+(4, 'Plains', 'Een basic full art plains van de Zendikar set.', '1.00', 'plains.jpg'),
+(5, 'Swamp', 'Een basic full art swamp van de Zendikar set.', '1.00', 'swamp.jpg');
 
 -- --------------------------------------------------------
 
