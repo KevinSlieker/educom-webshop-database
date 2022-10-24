@@ -29,23 +29,26 @@ function getProductDetails($productId) {
 
 }
 
-function addAction($nextpage, $action, $button, $productId = NULL, $name = NULL, $addquantity = FALSE){
+function addAction($nextpage, $action, $button, $productId = NULL, $name = NULL, $addquantity = 0){
      if (isUserLoggedIn()){
           echo '<form action="index.php" method="post">';
-          echo '<input type="hidden" name="action" value="' . $action . '">';
+          echo '<input type="hidden" name="action" value="' . $action . '">' . PHP_EOL;
           if (!empty($productId)) {
-          echo '<input type="hidden" name="id" value="' . $productId . '">';
+          echo '<input type="hidden" name="id" value="' . $productId . '">' . PHP_EOL;
           }
           if (!empty($name)) {
-          echo '<input type="hidden" name="name" value="' . $name . '">';
+          echo '<input type="hidden" name="name" value="' . $name . '">' . PHP_EOL;
           }
-          echo '<input type="hidden" name="page" value="' . $nextpage . '">';
-          if ($addquantity == TRUE) {
+          echo '<input type="hidden" name="page" value="' . $nextpage . '">' . PHP_EOL;
+          if ($addquantity !== 0) {
                $cart = getShoppingcart();
-               $quantity = (1 + getArrayVar($cart, $productId, 0));
-               echo '<input type="hidden" name="quantity" value="' . $quantity . '">';
+               $quantity = ($addquantity + (float)getArrayVar($cart, $productId, 0));
+               echo '<input type="hidden" name="quantity" value="' . $quantity . '">' . PHP_EOL;
+               if ($quantity == 0) {
+                    echo '<input type="hidden" name="action" value="removeFromShoppingcart">' . PHP_EOL;
                }
-          echo '<button>' . $button . '</button>';
+          }
+          echo '<button>' . $button . '</button>' . PHP_EOL;
           echo '</form>';
      }
 

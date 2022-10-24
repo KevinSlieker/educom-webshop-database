@@ -79,3 +79,11 @@ padding-right: 10px;
 	float: left;
 }
 
+div.product > div.amount button{
+width: 20px;
+}
+
+div.product > div.amount {
+	display: inline-block;
+}
+

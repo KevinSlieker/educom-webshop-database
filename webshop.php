@@ -16,7 +16,7 @@ function showWebshopContent($data) {
     echo '<img src="Images/' . $product['filename_img'] . '" alt="' . $product['name'] . '" width="60" height="80"><br>';
     echo '<p4>Id: ' . $product['id'] . '</p4><br>';
     echo '<p5>Prijs: &euro;' . $product['price'] . '</p5></a>';
-    addAction('webshop', 'addToShoppingcart', "Add to shoppingcart", $product['id'], $product['name'], TRUE);
+    addAction('webshop', 'addToShoppingcart', "Add to shoppingcart", $product['id'], $product['name'], 1);
     echo '</div>'. PHP_EOL;
     }
     echo '</div>';  
